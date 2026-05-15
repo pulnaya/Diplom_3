@@ -6,16 +6,16 @@ import data
 class TestForgotPasswordPage:
 
     @allure.title("Переход на страницу восстановления пароля")
-    def test_go_to_forgot_password_page(self, driver, login_page):
-        driver.get(LOGIN_PAGE_URL)
+    def test_go_to_forgot_password_page(self, login_page):
+        login_page.go_to_url(LOGIN_PAGE_URL)
         login_page.click_forgot_password_link()
         
         with allure.step(f"Проверяем редирект на страницу восстановления пароля"):
             assert login_page.get_current_url() == FORGOT_PASSWORD_URL , f'Страница "{FORGOT_PASSWORD_URL}" не открылась'
     
     @allure.title("Ввод почты и клик по кнопке 'Восстановить'")
-    def test_enter_email_and_click_restore(self, driver, forgot_password_page):
-        driver.get(FORGOT_PASSWORD_URL)
+    def test_enter_email_and_click_restore(self, forgot_password_page):
+        forgot_password_page.go_to_url(FORGOT_PASSWORD_URL)
         forgot_password_page.enter_email(data.EXISTING_USER_EMAIL)
         forgot_password_page.click_restore_button()
         forgot_password_page.wait_for_load_reset_password_form()
@@ -24,8 +24,8 @@ class TestForgotPasswordPage:
             assert forgot_password_page.get_current_url() == RESET_PASSWORD_URL, f'Страница "{RESET_PASSWORD_URL}" не открылась'
 
     @allure.title("Кнопка показать/скрыть пароль подсвечивает поле")
-    def test_show_password_button_highlights_field(self, driver, forgot_password_page):
-        driver.get(FORGOT_PASSWORD_URL)
+    def test_show_password_button_highlights_field(self, forgot_password_page):
+        forgot_password_page.go_to_url(FORGOT_PASSWORD_URL)
         forgot_password_page.wait_for_load_forgot_password_form()
         forgot_password_page.enter_email(data.EXISTING_USER_EMAIL)
         forgot_password_page.click_restore_button()

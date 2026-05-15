@@ -9,7 +9,6 @@ from urls import LOGIN_PAGE_URL
 from data import EXISTING_USER_EMAIL, EXISTING_USER_PASSWORD
 
 
-
 @pytest.fixture(params=["chrome", "firefox"])
 def driver(request):
     if request.param == "chrome":
